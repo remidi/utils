@@ -1,0 +1,22 @@
+==> deploy server 
+
+mkcd project.git 
+git init --bare
+cd hooks 
+
+cat > post-receive
+#!/bin/bash
+git --work-tree=/home/genesis/docker-fls/project --git-dir=/home/genesis/git-src/project.git checkout -f
+==> 'ctrl + d' to save
+
+chmod +x post-receive
+
+==> local dev environment 
+
+mkcd project 
+git init 
+
+git remote add deploy ssh://username@ip_address/home/genesis/git-src/project.git
+git add .
+git commit -m 'commit description'
+git push deploy master
