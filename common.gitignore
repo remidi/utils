@@ -1,0 +1,11 @@
+input/
+.idea/
+__pycache__/
+.ipynb_checkpoints/
+persist/
+save/
+
+*.pickle
+*.pkl
+
+.DS_Store
