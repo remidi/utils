@@ -4,8 +4,11 @@ __pycache__/
 .ipynb_checkpoints/
 persist/
 save/
+tmp/
 
 *.pickle
 *.pkl
 
 .DS_Store
+
+*.log

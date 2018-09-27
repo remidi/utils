@@ -1,5 +1,8 @@
 ''' Author: Yashwanth Remidi
 	Email: yashwanthremidi@gmail.com
+
+	Functional units for metrics, encoders and decoders used in machine learning algorithms.
+	Note: Please also check essentials.py for libraries
 '''
 
 
@@ -8,10 +11,26 @@ from essentials import *
 
 def IoU():
 	'''
-	Description: 
+	Description: IoU of single image predicted(P) and Ground Truth(G) = (P ∩ G)/ (P ∪ G)
+	 at thresholds range(0.5, 0.95, 0.05) => [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]
 
-	Formula: '''
-	
+	IoU = intersected pixels / union pixels 
+
+	Note: Intersected pixels will be lesser than or equal to the ground truth and Union pixels will be greater than equal to ground truth
+
+	precision at threshold (t) = TP / TP + FP + FN
+
+	TP: hit with prediction and ground truth
+	FP: prediction didn't hit
+	FN: ground truth was not hit 
+
+	Note: FP and FN are both same. so the formula = TP/(TP + ~TP)
+
+	precision of image = 1/n_tresh * ∑ precision t
+
+	IoU metric = mean(precision of images)
+	'''
+
 	pass
 
 
