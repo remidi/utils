@@ -6,7 +6,7 @@ cd hooks
 
 cat > post-receive
 #!/bin/bash
-git --work-tree=/home/genesis/docker-fls/project --git-dir=/home/genesis/git-src/project.git checkout -f
+git --work-tree=/home/remidi/kaggle-projects/project --git-dir=/home/remidi/git-src/project.git checkout -f
 ==> 'ctrl + d' to save
 
 chmod +x post-receive

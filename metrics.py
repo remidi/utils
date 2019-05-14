@@ -9,10 +9,10 @@
 from essentials import *
 
 
-def IoU():
+def IoU(outputs: torch.Tensor, labels: torch.Tensor):
 	'''
 	Description: IoU of single image predicted(P) and Ground Truth(G) = (P ∩ G)/ (P ∪ G)
-	 at thresholds range(0.5, 0.95, 0.05) => [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]
+	 at thresholds [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]
 
 	IoU = intersected pixels / union pixels 
 
@@ -24,14 +24,28 @@ def IoU():
 	FP: prediction didn't hit
 	FN: ground truth was not hit 
 
-	Note: FP and FN are both same. so the formula = TP/(TP + ~TP)
+	Note: FP and FN are both same. so the formula = TP/(TP + 2*~TP)
 
-	precision of image = 1/n_tresh * ∑ precision t
+	precision of image = 1/n_tresh * ∑ precision(t)
 
 	IoU metric = mean(precision of images)
+
+	:param output - (N x H x W) 
+	:param labels - (N x H x W)
+
+		-- predicted tensor and ground truth should be of same shape (H x W), N - batch size 
 	'''
 
-	pass
+	smooth = 1e-6
+
+    intersection = (outputs & labels).float().sum((1, 2))
+    union = (outputs | labels).float().sum((1, 2))
+
+    iou = (intersection + smooth)/(union + smooth)
+
+    thresholded = torch.clamp(20 * (iou - 0.5), 0, 10).ceil()/10
+
+    return thresholded # or thresholded.mean()
 
 
 def rle_encode(img):
